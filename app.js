@@ -1,25 +1,57 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+const mongoose = require("mongoose");
 const ejsMate = require("ejs-mate");
+const methodOverride = require("method-override");
+const Todo = require("./models/todo");
 
 app.engine("ejs", ejsMate);
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
-app.get("/", (req, res) => {
-	res.render("home");
+mongoose.connect("mongodb://localhost:27017/todolist", {});
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", () => {
+    console.log("Database connected");
 });
 
-app.get("/todolist", (req, res) => {
-	res.render("todolist/index");
+app.get("/", (req, res) => {
+    res.render("home");
+});
+
+app.get("/todolist", async (req, res) => {
+    const todos = await Todo.find({});
+    res.render("todolist/index", { todos });
 });
 
 app.get("/todolist/new", (req, res) => {
-	res.render("todolist/new");
+    res.render("todolist/new");
+});
+
+app.post("/todolist", async (req, res) => {
+    const newTodo = new Todo(req.body);
+    await newTodo.save();
+    res.redirect("todolist");
+});
+
+app.get("/todolist/:id", async (req, res) => {
+    const { id } = req.params;
+    const todo = await Todo.findById(id);
+    res.render("todolist/show", { todo });
+});
+
+app.get("todolist/:id/edit", async (req, res) => {
+    const { id } = req.params;
+    const todo = await Todo.findById(id);
+    res.render("todolist/edit", { todo });
 });
 
 app.listen(4000, () => {
-	console.log("Listening on PORT 4000");
+    console.log("Listening on PORT 4000");
 });
