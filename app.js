@@ -46,10 +46,18 @@ app.get("/todolist/:id", async (req, res) => {
     res.render("todolist/show", { todo });
 });
 
-app.get("todolist/:id/edit", async (req, res) => {
+app.get("/todolist/:id/edit", async (req, res) => {
     const { id } = req.params;
     const todo = await Todo.findById(id);
+    // res.send("EDIT TODO");
     res.render("todolist/edit", { todo });
+});
+
+app.put("/todolist/:id", async (req, res) => {
+    const { id } = req.params;
+    const updateTodo = await Todo.findByIdAndUpdate(id, req.body);
+    await updateTodo.save();
+    res.redirect(`/todolist/${id}`);
 });
 
 app.listen(4000, () => {
