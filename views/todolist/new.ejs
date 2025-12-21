@@ -1,0 +1,17 @@
+<%- layout('layouts/boilerplate') %>
+
+<div>
+    <a href="/todolist">Back to All To Do</a>
+    <h1>Add new todo</h1>
+    <form action="/todolist" method="post">
+        <div>
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" />
+        </div>
+        <div>
+            <label for="description">Description</label>
+            <textarea name="description" id="description"></textarea>
+        </div>
+        <button>Add</button>
+    </form>
+</div>

@@ -60,6 +60,12 @@ app.put("/todolist/:id", async (req, res) => {
     res.redirect(`/todolist/${id}`);
 });
 
+app.delete("/todolist/:id", async (req, res) => {
+    const { id } = req.params;
+    const deleteTodo = await Todo.findByIdAndDelete(id);
+    res.redirect("/todolist");
+});
+
 app.listen(4000, () => {
     console.log("Listening on PORT 4000");
 });
