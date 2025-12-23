@@ -2,6 +2,15 @@
 <div>
     <a href="/todolist">Back to To Do</a>
     <h1><%= todo.title %></h1>
+    <section>
+        <div>
+            Due: <%= days[todo.dueDate.getDay()] %>, <%= todo.dueDate.getDate()
+            %> <%= months[todo.dueDate.getMonth()] %> <%=
+            todo.dueDate.getFullYear()%>
+        </div>
+        <div>Priority: <%= todo.priority %></div>
+    </section>
+
     <p><%= todo.description %></p>
 
     <a href="/todolist/<%= todo._id %>/edit">Edit Todo</a>

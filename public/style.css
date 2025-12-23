@@ -1,0 +1,27 @@
+* {
+    /* box-sizing: border-box; */
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Inter, serif;
+    background-color: rgb(130, 194, 228);
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: white;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    background-color: rgb(179, 239, 198);
+}
+
+footer div {
+    padding: 1.05rem;
+}

@@ -6,12 +6,37 @@ const ejsMate = require("ejs-mate");
 const methodOverride = require("method-override");
 const Todo = require("./models/todo");
 
+const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+];
+const months = [
+    "January",
+    "Febuary",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+];
+
 app.engine("ejs", ejsMate);
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+app.use(express.static(path.join(__dirname, "public")));
 
 mongoose.connect("mongodb://localhost:27017/todolist", {});
 
@@ -43,7 +68,7 @@ app.post("/todolist", async (req, res) => {
 app.get("/todolist/:id", async (req, res) => {
     const { id } = req.params;
     const todo = await Todo.findById(id);
-    res.render("todolist/show", { todo });
+    res.render("todolist/show", { todo, days, months });
 });
 
 app.get("/todolist/:id/edit", async (req, res) => {

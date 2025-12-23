@@ -31,6 +31,15 @@ const randomDate = () => {
     return dates;
 };
 
+const randomTime = () => {
+    const times = [];
+    for (let i = 0; i < 10; ++i) {
+        const hour = Math.floor(Math.random() * 23) + 1;
+        const minute = Math.floor(Math.random() * 59) + 1;
+        times.push();
+    }
+};
+
 const seedDB = async () => {
     await Todo.deleteMany({});
     const priorities = randomPriority();
@@ -40,7 +49,7 @@ const seedDB = async () => {
             title: todoTitles[i],
             description: todoDescription[i],
             priority: priorities[i],
-            dueDate: Date(dates[i]),
+            dueDate: new Date(dates[i]),
         });
         await t.save();
     }
