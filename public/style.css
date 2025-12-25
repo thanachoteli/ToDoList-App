@@ -40,3 +40,15 @@ footer {
 footer div {
     padding: 1.05rem;
 }
+
+ul li {
+    margin: 3% 0;
+}
+
+button {
+    margin: 1.005rem 0;
+}
+
+h1 {
+    margin: 10px 0;
+}
