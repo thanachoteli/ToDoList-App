@@ -14,7 +14,7 @@ const todoSchema = new Schema({
         type: Date,
     },
     priority: {
-        type: [Number],
+        type: Number,
         enum: [1, 2, 3],
     },
 });
