@@ -18,6 +18,26 @@
 <%= todo.description %></textarea
             >
         </div>
+        <div>
+            <label for="dueDate">Due Date</label>
+            <input
+                type="date"
+                name="dueDate"
+                id="dueDate"
+                value=`${todo.dueDate.getFullYear()}-${todo.dueDate.getMonth()+1}-${todo.dueDate.getDate()}`
+            />
+        </div>
+        <div>
+            <label for="priority">Priority</label>
+            <select name="priority" id="priority">
+                <% for (let p of [1,2,3]) { %>
+                <option value="<%= p %>" <%= todo.priority === p ? 'selected': '' %>>
+                    <%= p %>
+                </option>
+                <% } %>
+            </select>
+        </div>
+        <a href="/todolist/<%= todo._id %>">Back</a>
         <button>Update</button>
     </form>
 </div>
