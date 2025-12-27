@@ -74,8 +74,13 @@ app.get("/todolist/:id", async (req, res) => {
 app.get("/todolist/:id/edit", async (req, res) => {
     const { id } = req.params;
     const todo = await Todo.findById(id);
-    // res.send("EDIT TODO");
-    res.render("todolist/edit", { todo });
+    let dueDateMonth = "";
+    if (todo.dueDate.getMonth() < 10) {
+        dueDateMonth = `0${todo.dueDate.getMonth() + 1}`;
+    } else {
+        dueDateMonth = todo.dueDate.getMonth() + 1;
+    }
+    res.render("todolist/edit", { todo, dueDateMonth });
 });
 
 app.put("/todolist/:id", async (req, res) => {
