@@ -96,6 +96,14 @@ app.delete("/todolist/:id", async (req, res) => {
     res.redirect("/todolist");
 });
 
+app.all(/(.*)/, (req, res, next) => {
+    next(new expressError("Page Not Found", 404));
+});
+
+app.use((err, req, res, next) => {
+    res.render("error");
+});
+
 app.listen(4000, () => {
     console.log("Listening on PORT 4000");
 });
